@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FitPlan</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<meta name="theme-color" content="#F1F4EE">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="FitPlan">
+<style>
+html,body{height:100%;margin:0;background:#F1F4EE;color:#13231D;font:15px/1.5 system-ui,sans-serif}
+iframe{position:fixed;top:env(safe-area-inset-top);left:env(safe-area-inset-left);right:env(safe-area-inset-right);bottom:env(safe-area-inset-bottom);width:auto;height:auto;border:0}
+#ld{position:fixed;inset:0;display:grid;place-content:center;gap:10px;text-align:center;padding:24px;background:#F1F4EE;transition:opacity .3s}
+#ld.off{opacity:0;pointer-events:none}#ld b{font-size:26px;letter-spacing:-.03em}
+.btn{display:inline-block;border-radius:999px;padding:10px 18px;background:#17624F;color:#fff;font-weight:700;text-decoration:none}
+#fb{position:fixed;top:calc(env(safe-area-inset-top) + 8px);right:8px;display:flex;gap:8px;align-items:center;max-width:calc(100% - 16px);padding:8px 8px 8px 14px;border-radius:999px;background:#13231D;color:#fff;font-size:13px;z-index:5}
+#fb[hidden]{display:none}#fb a{color:#fff;font-weight:700}#fb button{border:0;background:none;color:#fff;font-size:20px;line-height:1}
+</style></head><body>
+<iframe id="f" title="FitPlan" allow="autoplay"></iframe>
+<div id="ld"><b>FitPlan</b><p id="msg">Memuat aplikasi…</p></div>
+<div id="fb" hidden><span>Tidak tampil?</span><a id="op" target="_blank" rel="noopener">Buka langsung</a><button aria-label="Tutup" onclick="this.parentNode.hidden=true">×</button></div>
+<script>
+// GANTI dengan alamat web app Apps Script Anda (berakhiran /exec)
+const APP_URL='https://script.google.com/macros/s/AKfycbxePE1Z4DHKV8uDYQbYUGweperc4cmFy0Xv5iWAmcm5a6w2otBBWLY2vrRan5Q6kGcp/exec';
+const f=document.getElementById('f'),ld=document.getElementById('ld'),fb=document.getElementById('fb'),msg=document.getElementById('msg');
+if(!/^https:\/\/script\.google\.com\/(a\/[^/]+\/)?macros\/s\/[\w-]+\/exec/.test(APP_URL)){
+  msg.textContent='Buka file index.html, lalu ganti APP_URL dengan alamat web app Anda (berakhiran /exec).';
+}else{
+  f.src=APP_URL;document.getElementById('op').href=APP_URL;
+  f.addEventListener('load',()=>setTimeout(()=>ld.classList.add('off'),400));
+  addEventListener('message',e=>{if(e.data&&e.data.fitplan==='ready'){ld.classList.add('off');fb.hidden=true;clearTimeout(t)}});
+  var t=setTimeout(()=>{ld.classList.add('off');fb.hidden=false},8000);
+}
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js'));
+</script></body></html>
