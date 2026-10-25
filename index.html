@@ -10,14 +10,15 @@
 <meta name="apple-mobile-web-app-title" content="FitPlan">
 <style>
 html,body{height:100%;margin:0;background:#F1F4EE;color:#13231D;font:15px/1.5 system-ui,sans-serif}
-iframe{position:fixed;top:env(safe-area-inset-top);left:env(safe-area-inset-left);right:env(safe-area-inset-right);bottom:env(safe-area-inset-bottom);width:auto;height:auto;border:0}
+#w{position:fixed;top:env(safe-area-inset-top);left:env(safe-area-inset-left);right:env(safe-area-inset-right);bottom:env(safe-area-inset-bottom)}
+iframe{display:block;width:100%;height:100%;border:0}
 #ld{position:fixed;inset:0;display:grid;place-content:center;gap:10px;text-align:center;padding:24px;background:#F1F4EE;transition:opacity .3s}
 #ld.off{opacity:0;pointer-events:none}#ld b{font-size:26px;letter-spacing:-.03em}
 .btn{display:inline-block;border-radius:999px;padding:10px 18px;background:#17624F;color:#fff;font-weight:700;text-decoration:none}
 #fb{position:fixed;top:calc(env(safe-area-inset-top) + 8px);right:8px;display:flex;gap:8px;align-items:center;max-width:calc(100% - 16px);padding:8px 8px 8px 14px;border-radius:999px;background:#13231D;color:#fff;font-size:13px;z-index:5}
 #fb[hidden]{display:none}#fb a{color:#fff;font-weight:700}#fb button{border:0;background:none;color:#fff;font-size:20px;line-height:1}
 </style></head><body>
-<iframe id="f" title="FitPlan" allow="autoplay"></iframe>
+<div id="w"><iframe id="f" title="FitPlan" allow="autoplay"></iframe></div>
 <div id="ld"><b>FitPlan</b><p id="msg">Memuat aplikasi…</p></div>
 <div id="fb" hidden><span>Tidak tampil?</span><a id="op" target="_blank" rel="noopener">Buka langsung</a><button aria-label="Tutup" onclick="this.parentNode.hidden=true">×</button></div>
 <script>
